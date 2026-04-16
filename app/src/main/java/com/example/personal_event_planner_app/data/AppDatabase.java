@@ -39,6 +39,7 @@ public abstract class AppDatabase extends RoomDatabase {
                      * If schema changes without migration,
                      * the database will be cleared and recreated.
                      */
+                    .allowMainThreadQueries() // allow db operations on the main thread for simplicity
                     .fallbackToDestructiveMigration()
                     .build();
         }

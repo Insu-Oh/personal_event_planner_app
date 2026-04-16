@@ -10,7 +10,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-// MainActivity: Acts as the container (shell) that holds fragments and the bottom navigation
 public class MainActivity extends AppCompatActivity {
 
     // Reference to BottomNavigationView (bottom tab bar)

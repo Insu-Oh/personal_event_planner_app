@@ -1,4 +1,6 @@
 package com.example.personal_event_planner_app;
 
-public class EditEventFragment {
+import androidx.fragment.app.Fragment;
+
+public class EditEventFragment extends Fragment {
 }

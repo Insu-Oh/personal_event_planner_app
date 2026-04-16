@@ -79,6 +79,42 @@ public class EventListFragment extends Fragment {
 
         listViewEvents.setAdapter(adapter);
 
+        // handle item click for update
+        // open edit screen when an item is clicked
+        listViewEvents.setOnItemClickListener((parent, view, position, id) -> {
+            Event selectedEvent = eventList.get(position);
+
+            EditEventFragment fragment = new EditEventFragment();
+
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", selectedEvent.getId());
+            bundle.putString("title", selectedEvent.getTitle());
+            bundle.putString("category", selectedEvent.getCategory());
+            bundle.putString("location", selectedEvent.getLocation());
+            bundle.putLong("dateTime", selectedEvent.getDateTime());
+
+            fragment.setArguments(bundle);
+
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+        // Handle long click for delete
+        listViewEvents.setOnItemLongClickListener((parent, view, position, id) -> {
+            Event selectedEvent = eventList.get(position);
+
+            AppDatabase.getInstance(requireContext()).eventDao().delete(selectedEvent);
+
+            android.widget.Toast.makeText(requireContext(), "Event deleted", android.widget.Toast.LENGTH_SHORT).show();
+
+            loadEvents(); // refresh list
+
+            return true;
+        });
+
         // Show empty message if there are no saved events
         if (displayList.isEmpty()) {
             textViewEmpty.setVisibility(View.VISIBLE);
